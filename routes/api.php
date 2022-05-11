@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 //use App\Http\Controllers\ProductController;
-
+//use App\Http\Controllers\API\JWTAuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,10 +25,20 @@ Route::post('register', [ApiController::class, 'register']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('logout', [ApiController::class, 'logout']);
-    Route::get('get_user', [ApiController::class, 'get_user']);
+    Route::get('get_user', [ApiController::class, 'getAuthenticatedUser']);
     //Route::get('products', [ProductController::class, 'index']);
     //Route::get('products/{id}', [ProductController::class, 'show']);
     //Route::post('create', [ProductController::class, 'store']);
     //Route::put('update/{product}',  [ProductController::class, 'update']);
     //Route::delete('delete/{product}',  [ProductController::class, 'destroy']);
 });
+
+/*
+Route::post('register', [JWTAuthController::class, 'register']);
+Route::post('login', [JWTAuthController::class, 'login']);
+  
+Route::group(['middleware' => 'jwt.auth'], function () {
+ 
+    Route::post('logout', [JWTAuthController::class, 'logout']);
+  
+});*/

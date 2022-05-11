@@ -7,7 +7,7 @@ Demo JWT Auth
 Use powershell or cmd and type by order, please see below.
 
 -   `git clone https://github.com/kantinanm/osm-backend.git`
--   `cd laravel-ldap`
+-   `cd osm-backend`
 -   > install package dependency in this project.
     > `composer install`
 -   > create .env and modify value.

@@ -237,4 +237,7 @@ return [
 
     ],
 
+    'admin_address'=> env('ADMIN_ADDRESS', 'kantinanm@nu.ac.th'),
+    'manager_address'=> env('MANAGER_ADDRESS', 'makmee2@hotmail.com'),
+
 ];

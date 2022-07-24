@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use Config;
+use Carbon\Carbon;
+use App\Jobs\NotifyRegisterJob;
 
 class ApiController extends Controller
 {
@@ -15,9 +18,10 @@ class ApiController extends Controller
     public function register(Request $request)
     {
     	//Validate data
-        $data = $request->only('name', 'email', 'password');
+        $data = $request->only('name','student_id', 'email', 'password');
         $validator = Validator::make($data, [
             'name' => 'required|string',
+            'student_id' => 'required|string|digits:8', //string|digits:8
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|max:50'
         ]);
@@ -34,6 +38,8 @@ class ApiController extends Controller
         	'password' => bcrypt($request->password)
         ]);
 
+        dispatch((new NotifyRegisterJob($request->email,$request->name,$request->student_id))->delay(Carbon::now()->addSeconds(3)));
+
         //User created, return success response
         return response()->json([
             'success' => true,
@@ -42,6 +48,7 @@ class ApiController extends Controller
         ], Response::HTTP_OK);
     }
 
+    
 
     public function authenticate(Request $request)
     {

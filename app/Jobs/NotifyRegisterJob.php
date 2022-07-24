@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail; 
 use Config;
 use Illuminate\Support\Facades\Log;
+use App\Mail\SendEMailRegister;
 
 class NotifyRegisterJob implements ShouldQueue
 {

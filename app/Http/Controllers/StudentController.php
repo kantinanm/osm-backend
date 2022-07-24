@@ -8,21 +8,27 @@ use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {
     //
-    protected $user;
+    //protected $user;
 
     public function __construct()
     {
-        $this->user = JWTAuth::parseToken()->authenticate();
+        //$this->user = JWTAuth::parseToken()->authenticate();
     }
 
     public function index()
     {
-        return $this->user
-            ->products()
-            ->get();
+        return  StudentResource::collection(Student::all());
+    }
+
+    public function show($id)
+    {
+        //
+        $student=Student::Where('student_id',$id)->get();
+        return  StudentResource::collection($student);
     }
 }

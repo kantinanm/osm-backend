@@ -13,7 +13,7 @@ class StudentResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     
-    public static $wrap='students';
+    //public static $wrap='students';
     public function toArray($request)
     {
         return [
@@ -28,7 +28,11 @@ class StudentResource extends JsonResource
 
     public function with($request)
     {
-        return ['status' =>'success'];
+        //return ['status' =>'success'];
+        return [
+            'isSuccess' => true,
+            'message' => ''
+        ];
     }
 
 }

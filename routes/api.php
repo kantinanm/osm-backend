@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\FacultyController;
 //use App\Http\Controllers\API\JWTAuthController;
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::get('get_user', [ApiController::class, 'getAuthenticatedUser']);
     Route::get('students', [StudentController::class, 'index']);
     Route::get('student/{id}', [StudentController::class, 'show']);
+    Route::get('faculties', [FacultyController::class, 'index']);
     //Route::post('create', [ProductController::class, 'store']);
     //Route::put('update/{product}',  [ProductController::class, 'update']);
     //Route::delete('delete/{product}',  [ProductController::class, 'destroy']);

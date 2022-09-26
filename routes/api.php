@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ItemsController;
 //use App\Http\Controllers\API\JWTAuthController;
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     //Route::put('update/{product}',  [ProductController::class, 'update']);
     //Route::delete('delete/{product}',  [ProductController::class, 'destroy']);
 });
+
+Route::get('generate/{item_code}', [ItemsController::class, 'generateQrCode']);
 
 /*
 Route::post('register', [JWTAuthController::class, 'register']);

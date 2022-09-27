@@ -9,8 +9,10 @@ use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Writer;
-// use \BaconQrCode\Renderer\Image\Png;
-// use \BaconQrCode\Renderer\Color;
+
+use BaconQrCode\Renderer\Module\DotsModule;
+use BaconQrCode\Renderer\Module\RoundnessModule;
+use BaconQrCode\Renderer\RendererStyle\EyeFill;
 
 
 use BaconQrCode\Renderer\RendererStyle\Fill;
@@ -29,11 +31,27 @@ class ItemsController extends Controller
     $size=300;
     $margin=2;
 
-    $vermelho      = new Rgb(255,0,0);
-    $amarelo       = new Rgb(255,255,0);
-    $preenchimento = Fill::uniformColor($vermelho, $amarelo);
+    $background      = new Rgb(204,229,255);
+    $forground       = new Rgb(0,51,170);
 
-    $style = new RendererStyle($size, $margin, null, null, $preenchimento);
+    $extColor = new Rgb(14,7,218);
+    $inColor = new Rgb(148,15,50);
+
+    $topLeftEyeFill =new EyeFill($extColor,$inColor);
+    $topRightEyeFill =new EyeFill(new Rgb(2,51,22),new Rgb(102,56,20));
+    $bottomLeftEyeFill =new EyeFill(new Rgb(2,51,22),new Rgb(102,56,20));
+
+    $stylistEye = Fill::withForegroundColor($background, $forground,$topLeftEyeFill,$topRightEyeFill,$bottomLeftEyeFill);
+
+    //$stylist = Fill::uniformColor($background, $forground);
+
+
+    $dotModule= new DotsModule(0.8);
+    $roundModule= new RoundnessModule(0.9);
+    
+
+
+    $style = new RendererStyle($size, $margin,  $roundModule, null,  $stylistEye);
 
     $renderer = new ImageRenderer(
         $style,
@@ -49,7 +67,7 @@ class ItemsController extends Controller
     $writer = new Writer($renderer);
   
     $qr_image = base64_encode($writer->writeString($item_code));
-    $fileName="qr-".$item_code."-".Carbon::now('Asia/Bangkok')->format('Y-m-d').".png";
+    $fileName="qr-".$item_code."-".Carbon::now('Asia/Bangkok')->format('Y-m-d_His').".png";
     $writer->writeFile($item_code, 'images/qrcode/'.$fileName);
 
     return view('pages.showqrcode')

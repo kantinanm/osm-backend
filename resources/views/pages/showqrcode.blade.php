@@ -1,2 +1,2 @@
 <img src="data:image/png;base64, <?php echo $qr_image; ?> " />
-<a href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(250)->color(0, 0,51,100)->generate($item_code)) !!} " class="btn btn-primary" download>Download</a>
+<a href="data:image/png;base64, {!! base64_encode(QrCode::format('png')->style('round',0.9)->eyeColor(0, 148,15,50, 14,7,218)->eyeColor(1, 102,56,20, 2,51,22)->eyeColor(2, 102,56,20, 2,51,22)->margin(2)->size(300)->backgroundColor(204,229,255)->color(0,51,170)->encoding('UTF-8')->generate($item_code)) !!} " class="btn btn-primary" download>Download</a>

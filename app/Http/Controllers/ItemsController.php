@@ -31,7 +31,7 @@ class ItemsController extends Controller
     $size=300;
     $margin=2;
 
-    $background      = new Rgb(204,229,255);
+    $background      = new Rgb(255,255,255);
     $forground       = new Rgb(0,51,170);
 
     $extColor = new Rgb(14,7,218);
